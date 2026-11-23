@@ -10,9 +10,9 @@ public class FTA_CardBaseScript : MonoBehaviour
     private static FTA_CardBaseScript currentlyDraggedCard = null;
     //private Rigidbody2D myBody;
     private BoxCollider2D myBox;
+
     private List<Collider2D> hitResults = new List<Collider2D>();
     
-    private string identity;
     private Vector2 dragOffset;
     
     public enum CardType {
@@ -31,6 +31,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         
     protected virtual void Start()
     {
+        string identity = null;
         UpdateMousePosition();
         holdCard = InputSystem.actions.FindAction("Hold");
         //myBody = this.GetComponent<Rigidbody2D>();
@@ -49,12 +50,9 @@ public class FTA_CardBaseScript : MonoBehaviour
 
     void UpdateMousePosition()
     {
-        //mouseScreenPosition = Input.mousePosition;
         mouseScreenPos = Mouse.current.position.ReadValue(); // Raw PC screen pixels (e.g., 960, 540)
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos); // Converted to game world units (e.g., 0, 0)
         //mouseWorldPos.z = 0;
-        
-        
     }
     void MoveWithCard()
     {
@@ -69,7 +67,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         {
             Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
-            // Strict check: ensures this exact card's BoxCollider2D was the one hit
+           // ensures this exact card's BoxCollider2D was the one hit
             if (hitCollider != null && hitCollider == myBox)
             {
                 currentlyDraggedCard = this;
