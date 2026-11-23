@@ -15,7 +15,6 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     float attack;
     int exp;
     
-    
     protected override void Start()
     {
         base.Start();

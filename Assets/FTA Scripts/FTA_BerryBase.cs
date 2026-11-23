@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEditor.VersionControl;
 using UnityEngine;
 
@@ -9,10 +10,14 @@ public class FTA_BerryBase : FTA_CardBaseScript
         Rindo,
         Chilan
     }
+    
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        //CardType = CardType.Berry;
+        base.Start();
+        
+        //randomBerryType.Next(1,4);
     }
 
     // Update is called once per frame
