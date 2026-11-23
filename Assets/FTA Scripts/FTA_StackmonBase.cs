@@ -9,11 +9,12 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         Grass
     }
 
-    bool ally;
+    private bool ally;
     
     float hitPoints;
     float attack;
     int exp;
+    
     
     
     protected override void Start()
@@ -24,6 +25,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         //if CheckExp() yes, Evolve()
 
     }
+
     
     
     void Combat()
@@ -44,5 +46,10 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     void Evolve()
     {
         
+    }
+
+    public bool CheckAlly()
+    {
+        return ally;
     }
 }

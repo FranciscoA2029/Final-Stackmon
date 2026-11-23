@@ -23,20 +23,25 @@ public class CardPack : MonoBehaviour
 
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
-            Debug.Log("Pressed Right Click");
+            //Debug.Log("Pressed Right Click");
             Collider2D hitCollider = Physics2D.OverlapPoint(ScreenMousePos);
             if (hitCollider != null)
             {
-                Debug.Log("open cardpack");
-                for (int i = 0; i < NumOfCards; i++)
                 {
-                    spawnCard();
+                    //Debug.Log("open cardpack");
+                    for (int i = 0; i < NumOfCards; i++)
+                    {
+                        this.spawnCard();
+                    }
+
+                    Destroy(this.gameObject);
                 }
-                Destroy(this.gameObject);
             }
         }
         
     }
+
+
 
     void spawnCard()
     {
