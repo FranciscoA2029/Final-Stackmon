@@ -1,15 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 
 public class FTA_CardBaseScript : MonoBehaviour
 {
     private static FTA_CardBaseScript currentlyDraggedCard = null;
-    private Rigidbody2D myBody;
+    //private Rigidbody2D myBody;
     private BoxCollider2D myBox;
 
+    private List<Collider2D> hitResults = new List<Collider2D>();
     
     private Vector2 dragOffset;
     
@@ -32,7 +34,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         string identity = null;
         UpdateMousePosition();
         holdCard = InputSystem.actions.FindAction("Hold");
-        myBody = this.GetComponent<Rigidbody2D>();
+        //myBody = this.GetComponent<Rigidbody2D>();
         myBox = this.GetComponent<BoxCollider2D>();
     }
 
@@ -42,6 +44,8 @@ public class FTA_CardBaseScript : MonoBehaviour
         UpdateMousePosition();
 
         CheckCardMovement();
+        
+        checkSelfCollision();
     }
 
     void UpdateMousePosition()
@@ -52,14 +56,13 @@ public class FTA_CardBaseScript : MonoBehaviour
     }
     void MoveWithCard()
     {
-        GetComponent<Rigidbody2D>().transform.position = mouseWorldPos;
+        this.transform.position = mouseWorldPos;
         
     }
 
     void CheckCardMovement()
     {
-        
-        // 1. On Click: Only claim the drag if NO card is currently dragged AND the click hit THIS specific card's collider
+
         if (Mouse.current.leftButton.wasPressedThisFrame && currentlyDraggedCard == null)
         {
             Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
@@ -72,18 +75,45 @@ public class FTA_CardBaseScript : MonoBehaviour
             }
         }
 
-        // On Hold: ONLY move if THIS exact instance is the currentlyDraggedCard
         if (Mouse.current.leftButton.isPressed && currentlyDraggedCard == this)
         {
             transform.position = mouseWorldPos + dragOffset;
-            myBody.simulated = false;
+            //myBody.simulated = false;
         }
 
-        // On Release: Clear the active card slot
         if (Mouse.current.leftButton.wasReleasedThisFrame && currentlyDraggedCard == this)
         {
             currentlyDraggedCard = null;
-            myBody.simulated = true;
+            //myBody.simulated = true;
+        }
+        
+        checkOtherCards();
+    }
+
+    void checkOtherCards()
+    {
+        if (currentlyDraggedCard == this)
+        {
+            int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
+            for (int i = 0; i < hitCount; i++)
+            {
+                if (hitResults[i].TryGetComponent(out FTA_CardBaseScript otherCard))
+                {
+                    //Debug.Log("Overlapped other cards");
+                    //comment: use checkAlly and change Class in Filter to stackmon script in order 
+                    //to determine if other card is ally or foe
+                    otherCard.GetComponent<SpriteRenderer>().color = Color.darkRed;
+                }
+            }
+        }
+    }
+
+    void checkSelfCollision()
+    {
+        int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
+        if (hitCount == 0)
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
             RestartLevel();
         }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (_playerInput.actions["Spawn"].triggered)
         {
             //Debug.Log("X: " + ScreenMousePos.x + ", Y: " + ScreenMousePos.y);
             SpawnCardPack();
