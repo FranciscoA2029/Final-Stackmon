@@ -9,8 +9,8 @@ public class FTA_CardBaseScript : MonoBehaviour
     private static FTA_CardBaseScript currentlyDraggedCard = null;
     private Rigidbody2D myBody;
     private BoxCollider2D myBox;
+
     
-    private string identity
     private Vector2 dragOffset;
     
     public enum CardType {
@@ -29,6 +29,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         
     protected virtual void Start()
     {
+        string identity = null;
         UpdateMousePosition();
         holdCard = InputSystem.actions.FindAction("Hold");
         myBody = this.GetComponent<Rigidbody2D>();
