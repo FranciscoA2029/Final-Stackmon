@@ -25,8 +25,9 @@ public class CardPack : MonoBehaviour
         {
             //Debug.Log("Pressed Right Click");
             Collider2D hitCollider = Physics2D.OverlapPoint(ScreenMousePos);
-            if (hitCollider != null)
+            if (hitCollider != null && hitCollider == this.GetComponent<BoxCollider2D>())
             {
+                Debug.Log(hitCollider.name);
                 {
                     //Debug.Log("open cardpack");
                     for (int i = 0; i < NumOfCards; i++)
