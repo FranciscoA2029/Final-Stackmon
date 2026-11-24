@@ -14,6 +14,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
 
     int randomBerry;
     BerryType myID;
+    int berryValue;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +22,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
     {
         base.Start();
         DetermineBerryID();
+        DetermineBerryValue();
     }
     
     protected override void Update()
@@ -51,6 +53,10 @@ public class FTA_BerryBase : FTA_CardBaseScript
         
     }
 
+    void DetermineBerryValue()
+    {
+        berryValue = Random.Range(15, 25);
+    }
     protected override void checkInteraction(FTA_CardBaseScript otherCard, bool drop)
     {
         switch (otherCard)
@@ -63,7 +69,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
                     stackmon.GetComponent<SpriteRenderer>().color = Color.green;
                     if (drop)
                     {
-                        //otherCard.Feeding(berryValue)
+                        stackmon.Feeding(berryValue);
                     }
                 }
 
