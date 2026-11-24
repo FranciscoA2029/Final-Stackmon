@@ -147,8 +147,8 @@ public class FTA_StackmonBase : FTA_CardBaseScript
 
     async void goTurn(FTA_StackmonBase enemy)
     {
-        this.hitPoints -= enemy.attack;
-        enemy.hitPoints -= this.attack;
+        this.Attack(enemy);
+        enemy.Attack(this);
         if (this.hitPoints <= 0)
         {
             enemy.IsBusy();
@@ -184,5 +184,22 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     public bool CheckAlly()
     {
         return ally;
+    }
+
+    public void Attack(FTA_StackmonBase enemy)
+    {
+        enemy.hitPoints -= this.attack * GetElementMultiplier(this.stackmonType, enemy.stackmonType);
+    }
+
+    private int GetElementMultiplier(StackType attackType, StackType defendType)
+    {
+        return (attackType, defendType) switch
+        {   
+            (StackType.Fire, StackType.Grass) => 2,
+            (StackType.Water, StackType.Fire) => 2,
+            (StackType.Grass, StackType.Water) => 2,
+
+            _ => 1
+        };
     }
 }
