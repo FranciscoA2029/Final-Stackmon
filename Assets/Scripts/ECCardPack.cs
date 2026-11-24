@@ -10,6 +10,7 @@ public class CardPack : MonoBehaviour
     [SerializeField] FTA_CardBaseScript Card;
     [SerializeField] FTA_CardBaseScript AllyCard;
     [SerializeField] FTA_CardBaseScript EnemyCard;
+    [SerializeField] FTA_CardBaseScript BerryCard;
     
     private GameManager gameManager;
     
@@ -55,7 +56,7 @@ public class CardPack : MonoBehaviour
 
         Instantiate(AllyCard, new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2),
             Random.Range(transform.position.y - 2, transform.position.y + 2), 0), Quaternion.identity);
-        Instantiate(AllyCard, new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2),
+        Instantiate(BerryCard, new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2),
             Random.Range(transform.position.y - 2, transform.position.y + 2), 0), Quaternion.identity);
         Instantiate(EnemyCard, new Vector3(Random.Range(transform.position.x - 2, transform.position.x + 2),
             Random.Range(transform.position.y - 2, transform.position.y + 2), 0), Quaternion.identity);

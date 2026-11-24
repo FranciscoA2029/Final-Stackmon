@@ -172,7 +172,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
             
     }
 
-    void Feeding(int xp)
+    public void Feeding(int xp)
     {
         this.exp += xp;
     }

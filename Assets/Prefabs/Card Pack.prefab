@@ -155,3 +155,4 @@ MonoBehaviour:
   Card: {fileID: -5414260310055960890, guid: 8fa04d4cc9015874d9fea105833e23cd, type: 3}
   AllyCard: {fileID: 763932932070381249, guid: c8ec7b068136463449e662e1bb6a3bb0, type: 3}
   EnemyCard: {fileID: 3710782255349679763, guid: 73093a925f5c36d4bb0b19cb8acfdbfa, type: 3}
+  BerryCard: {fileID: 5091602885602370860, guid: 745fc4cacadc7fb4d93b636e82cefc6e, type: 3}
