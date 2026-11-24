@@ -139,6 +139,8 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     void Combat(FTA_StackmonBase enemy)
     {
         assumeCombatPosition(enemy);
+        this.IsBusy();
+        enemy.IsBusy();
         goTurn(enemy);
         
     }
@@ -149,10 +151,12 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         enemy.hitPoints -= this.attack;
         if (this.hitPoints <= 0)
         {
+            enemy.IsBusy();
             Destroy(this.gameObject);
             return;
         }else if (enemy.hitPoints <= 0)
         {
+            this.IsBusy();
             Destroy(enemy.gameObject);
             return;
         }

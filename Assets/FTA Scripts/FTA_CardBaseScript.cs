@@ -15,6 +15,8 @@ public class FTA_CardBaseScript : MonoBehaviour
     private List<Collider2D> hitResults = new List<Collider2D>();
     
     private Vector2 dragOffset;
+
+    bool isBusy;
     
     public enum CardType {
         Stackmon,
@@ -39,6 +41,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         holdCard = InputSystem.actions.FindAction("Hold");
         //myBody = this.GetComponent<Rigidbody2D>();
         myBox = this.GetComponent<BoxCollider2D>();
+        isBusy = false;
     }
 
     // Update is called once per frame
@@ -66,7 +69,7 @@ public class FTA_CardBaseScript : MonoBehaviour
     void CheckCardMovement()
     {
 
-        if (Mouse.current.leftButton.wasPressedThisFrame && currentlyDraggedCard == null)
+        if (Mouse.current.leftButton.wasPressedThisFrame && currentlyDraggedCard == null && !this.isBusy)
         {
             Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
@@ -135,5 +138,10 @@ public class FTA_CardBaseScript : MonoBehaviour
             }
         }
         this.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    protected virtual void IsBusy()
+    {
+        isBusy = !isBusy;
     }
 }
