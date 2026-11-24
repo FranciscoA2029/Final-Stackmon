@@ -7,10 +7,7 @@ using UnityEngine;
 public class FTA_StackmonBase : FTA_CardBaseScript
 {
     public enum StackType {
-        Normal,
-        Fire,
-        Water,
-        Grass
+        Normal, Fire, Water, Grass
     }
 
     int levelUpMargin1 = 100;

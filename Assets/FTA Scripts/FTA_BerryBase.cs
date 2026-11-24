@@ -9,10 +9,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
 {
     public enum BerryType
     {
-        Occa,
-        Pasho,
-        Rindo,
-        Chilan
+        Occa, Pasho, Rindo, Chilan
     }
 
     int randomBerry;
@@ -26,6 +23,10 @@ public class FTA_BerryBase : FTA_CardBaseScript
         DetermineBerryID();
     }
     
+    protected override void Update()
+    {
+        base.Update();
+    }
 
     void DetermineBerryID()
     {
@@ -48,11 +49,5 @@ public class FTA_BerryBase : FTA_CardBaseScript
                 break;
         }
         
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
     }
 }

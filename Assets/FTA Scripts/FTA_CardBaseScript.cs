@@ -70,7 +70,7 @@ public class FTA_CardBaseScript : MonoBehaviour
         {
             Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);
 
-           // ensures this exact card's BoxCollider2D was the one hit
+           // Makes sure that it's this card's collier that was hit.
             if (hitCollider != null && hitCollider == myBox)
             {
                 currentlyDraggedCard = this;

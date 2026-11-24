@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-
 public class GameManager : MonoBehaviour
 {
     private PlayerInput _playerInput;
