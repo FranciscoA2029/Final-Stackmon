@@ -109,16 +109,50 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         }
 
     }
-    
-    void Combat()
+
+    protected override void checkInteraction(FTA_CardBaseScript otherCard, bool drop)
     {
-        
+        switch (otherCard)
+        {
+            case FTA_StackmonBase stackmon:
+                if (stackmon.CheckAlly())
+                {
+                    stackmon.GetComponent<SpriteRenderer>().color = Color.green;
+                    //do ally stuff
+                }
+                else
+                {
+                    stackmon.GetComponent<SpriteRenderer>().color = Color.red;
+                    if (drop)
+                    {
+                        Combat(stackmon);
+                    }
+                    //do enemy battle stuff
+                }
+
+                break;
+        }
+
+    }
+    
+    void Combat(FTA_StackmonBase enemy)
+    {
+        assumeCombatPosition(enemy);
     }
 
-    void Feeding()
+    void assumeCombatPosition(FTA_StackmonBase enemy)
     {
-        // If overlap berry
-        // exp += berry value
+        float averagePosX = (this.transform.position.x +enemy.transform.position.x)/2;
+        float averagePosY =(this.transform.position.y +enemy.transform.position.y)/2;
+        enemy.GetComponent<SpriteRenderer>().flipY = true;
+        this.transform.position = new Vector3(averagePosX, averagePosY - 1, 0);
+        enemy.transform.position = new Vector3(averagePosX, averagePosY + 1, 0);
+            
+    }
+
+    void Feeding(int xp)
+    {
+        this.exp += xp;
     }
 
     public bool CheckAlly()
