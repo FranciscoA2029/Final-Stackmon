@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class FTA_StackmonBase : FTA_CardBaseScript
 {
@@ -138,6 +139,27 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     void Combat(FTA_StackmonBase enemy)
     {
         assumeCombatPosition(enemy);
+        goTurn(enemy);
+        
+    }
+
+    async void goTurn(FTA_StackmonBase enemy)
+    {
+        this.hitPoints -= enemy.attack;
+        enemy.hitPoints -= this.attack;
+        if (this.hitPoints <= 0)
+        {
+            Destroy(this.gameObject);
+            return;
+        }else if (enemy.hitPoints <= 0)
+        {
+            Destroy(enemy.gameObject);
+            return;
+        }
+        Debug.Log("Ally HP:  " + this.hitPoints + ", Enemy HP: " + enemy.hitPoints);
+        Debug.Log("Ally Attack" + this.attack + ", Enemy Attack: " + enemy.attack);
+        await Awaitable.WaitForSecondsAsync(2f);
+        goTurn(enemy);
     }
 
     void assumeCombatPosition(FTA_StackmonBase enemy)
