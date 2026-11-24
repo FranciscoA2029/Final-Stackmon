@@ -149,8 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c80654e96871447a8a4acc62383a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _playerInput: {fileID: 0}
-  CardPack: {fileID: 442884577644200141, guid: 14595808ca7dc4748a1e5b82f1cb42c8, type: 3}
+  _cardPack: {fileID: 6259530561019534385, guid: 14595808ca7dc4748a1e5b82f1cb42c8, type: 3}
 --- !u!4 &1684792269
 Transform:
   m_ObjectHideFlags: 0

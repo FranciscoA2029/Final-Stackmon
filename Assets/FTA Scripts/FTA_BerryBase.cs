@@ -70,6 +70,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
                     if (drop)
                     {
                         stackmon.Feeding(berryValue);
+                        Destroy(this.gameObject);
                     }
                 }
 
