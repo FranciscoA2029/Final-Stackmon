@@ -26,6 +26,10 @@ public class FTA_BerryBase : FTA_CardBaseScript
         DetermineBerryID();
     }
     
+    protected override void Update()
+    {
+        base.Update();
+    }
 
     void DetermineBerryID()
     {
@@ -48,11 +52,5 @@ public class FTA_BerryBase : FTA_CardBaseScript
                 break;
         }
         
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
     }
 }
