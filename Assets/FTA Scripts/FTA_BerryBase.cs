@@ -9,10 +9,7 @@ public class FTA_BerryBase : FTA_CardBaseScript
 {
     public enum BerryType
     {
-        Occa,
-        Pasho,
-        Rindo,
-        Chilan
+        Occa, Pasho, Rindo, Chilan
     }
 
     int randomBerry;
