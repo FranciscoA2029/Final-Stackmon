@@ -81,20 +81,21 @@ public class FTA_CardBaseScript : MonoBehaviour
         if (Mouse.current.leftButton.isPressed && currentlyDraggedCard == this)
         {
             transform.position = mouseWorldPos + dragOffset;
-            checkOtherCards();
+            checkOtherCards(false);
             
         }
 
         if (Mouse.current.leftButton.wasReleasedThisFrame && currentlyDraggedCard == this)
         {
             currentlyDraggedCard = null;
-            
+            checkOtherCards(true);
+
         }
         
         
     }
 
-    void checkOtherCards()
+    void checkOtherCards(bool drop)
     {
         
         int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
@@ -105,55 +106,15 @@ public class FTA_CardBaseScript : MonoBehaviour
                 //Debug.Log("Overlapped other cards");
                 //comment: use checkAlly and change Class in Filter to stackmon script in order 
                 //to determine if other card is ally or foe
-                checkInteraction(otherCard);
+                checkInteraction(otherCard, drop);
             }
         }
         
     }
 
-    void checkInteraction(FTA_CardBaseScript otherCard)
+    protected virtual void checkInteraction(FTA_CardBaseScript otherCard, bool drop)
     {
-        switch (cardType)
-        {
-            case(CardType.Stackmon):
-            switch (otherCard)
-            {
-                case FTA_StackmonBase stackmon:
-                    if (stackmon.CheckAlly())
-                    {
-                        stackmon.GetComponent<SpriteRenderer>().color = Color.green;
-                        //do ally stuff
-                    }
-                    else
-                    {
-                        stackmon.GetComponent<SpriteRenderer>().color = Color.red;
-                        //do enemy battle stuff
-                    }
-
-                    break;
-
-                case FTA_BerryBase berry:
-                    //eat berry or smthing
-                    break;
-            }
-            break;
-            case (CardType.Berry):
-            {
-                switch (otherCard)
-                {
-                    case FTA_StackmonBase stackmon:
-                        if (stackmon.CheckAlly())
-                        {
-                            //add xp or smthing;
-                        }
-
-                        break;
-                }
-
-                break;
-            }
-        }
-
+        return;
     }
 
     void checkSelfCollision()

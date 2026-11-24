@@ -50,4 +50,26 @@ public class FTA_BerryBase : FTA_CardBaseScript
         }
         
     }
+
+    protected override void checkInteraction(FTA_CardBaseScript otherCard, bool drop)
+    {
+        switch (otherCard)
+        {
+            case FTA_StackmonBase stackmon:
+            {
+
+                if (stackmon.CheckAlly())
+                {
+                    stackmon.GetComponent<SpriteRenderer>().color = Color.green;
+                    if (drop)
+                    {
+                        //otherCard.Feeding(berryValue)
+                    }
+                }
+
+                break;
+            }
+
+        }
+    }
 }
