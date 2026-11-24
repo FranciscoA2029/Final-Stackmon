@@ -152,4 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardPack
   NumOfCards: 3
-  Card: {fileID: 6353015421562859846, guid: 8fa04d4cc9015874d9fea105833e23cd, type: 3}
+  Card: {fileID: -5414260310055960890, guid: 8fa04d4cc9015874d9fea105833e23cd, type: 3}
+  AllyCard: {fileID: 763932932070381249, guid: c8ec7b068136463449e662e1bb6a3bb0, type: 3}
+  EnemyCard: {fileID: 3710782255349679763, guid: 73093a925f5c36d4bb0b19cb8acfdbfa, type: 3}

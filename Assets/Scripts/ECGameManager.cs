@@ -1,20 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerInput _playerInput;
+    private PlayerInput _playerInput;
     Vector2 WorldMousePos;
     Vector2 ScreenMousePos;
-    [SerializeField] GameObject CardPack;
+    [SerializeField] CardPack _cardPack;
+    private List<CardPack> _cardPacks;
+    private List<FTA_CardBaseScript> _cards;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
-        
+        _cardPacks = new  List<CardPack>();
+        _cards = new List<FTA_CardBaseScript>();
+
     }
 
     // Update is called once per frame
@@ -43,11 +48,20 @@ public class GameManager : MonoBehaviour
 
     void SpawnCardPack()
     {
-        Instantiate(CardPack, new Vector3(ScreenMousePos.x, ScreenMousePos.y, 0), Quaternion.identity);
+        _cardPacks.Add(Instantiate(_cardPack, new Vector3(ScreenMousePos.x, ScreenMousePos.y, 0), Quaternion.identity));
+        Debug.Log(_cardPacks.Count);
+    }
+
+    public void AddCard(FTA_CardBaseScript card)
+    {
+        _cards.Add(card);
+        Debug.Log(_cards.Count);
     }
 
     void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    
+    
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,8 @@ public class FTA_CardBaseScript : MonoBehaviour
         Station, 
     }
 
+    CardType cardType;
+    
     int layer;
 
     InputAction holdCard;
@@ -78,42 +81,98 @@ public class FTA_CardBaseScript : MonoBehaviour
         if (Mouse.current.leftButton.isPressed && currentlyDraggedCard == this)
         {
             transform.position = mouseWorldPos + dragOffset;
-            //myBody.simulated = false;
+            checkOtherCards();
+            
         }
 
         if (Mouse.current.leftButton.wasReleasedThisFrame && currentlyDraggedCard == this)
         {
             currentlyDraggedCard = null;
-            //myBody.simulated = true;
+            
         }
         
-        checkOtherCards();
+        
     }
 
     void checkOtherCards()
     {
-        if (currentlyDraggedCard == this)
+        
+        int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
+        for (int i = 0; i < hitCount; i++)
         {
-            int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
-            for (int i = 0; i < hitCount; i++)
+            if (hitResults[i].TryGetComponent(out FTA_CardBaseScript otherCard))
             {
-                if (hitResults[i].TryGetComponent(out FTA_CardBaseScript otherCard))
-                {
-                    //Debug.Log("Overlapped other cards");
-                    //comment: use checkAlly and change Class in Filter to stackmon script in order 
-                    //to determine if other card is ally or foe
-                    otherCard.GetComponent<SpriteRenderer>().color = Color.darkRed;
-                }
+                //Debug.Log("Overlapped other cards");
+                //comment: use checkAlly and change Class in Filter to stackmon script in order 
+                //to determine if other card is ally or foe
+                checkInteraction(otherCard);
             }
         }
+        
+    }
+
+    void checkInteraction(FTA_CardBaseScript otherCard)
+    {
+        switch (cardType)
+        {
+            case(CardType.Stackmon):
+            switch (otherCard)
+            {
+                case FTA_StackmonBase stackmon:
+                    if (stackmon.CheckAlly())
+                    {
+                        stackmon.GetComponent<SpriteRenderer>().color = Color.green;
+                        //do ally stuff
+                    }
+                    else
+                    {
+                        stackmon.GetComponent<SpriteRenderer>().color = Color.red;
+                        //do enemy battle stuff
+                    }
+
+                    break;
+
+                case FTA_BerryBase berry:
+                    //eat berry or smthing
+                    break;
+            }
+            break;
+            case (CardType.Berry):
+            {
+                switch (otherCard)
+                {
+                    case FTA_StackmonBase stackmon:
+                        if (stackmon.CheckAlly())
+                        {
+                            //add xp or smthing;
+                        }
+
+                        break;
+                }
+
+                break;
+            }
+        }
+
     }
 
     void checkSelfCollision()
     {
         int hitCount = myBox.Overlap(ContactFilter2D.noFilter, hitResults);
-        if (hitCount == 0)
+        for (int i = 0; i < hitCount; i++)
         {
-            GetComponent<SpriteRenderer>().color = Color.white;
+            if (hitResults[i].TryGetComponent(out FTA_CardBaseScript otherCard))
+            {
+                //Debug.Log("Overlapped other cards");
+                //comment: use checkAlly and change Class in Filter to stackmon script in order 
+                //to determine if other card is ally or foe
+                if (otherCard == currentlyDraggedCard)
+                {
+                    //this.GetComponent<SpriteRenderer>().color = Color.darkRed;
+                    return;
+                }
+            }
         }
+        this.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

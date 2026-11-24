@@ -17,7 +17,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     
     int nextStackmonType;
     StackType stackmonType;
-    private bool ally;
+    [SerializeField] bool ally;
     
     int hitPoints;
     int attack;
