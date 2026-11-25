@@ -153,6 +153,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     public void Feeding(int xp)
     {
         this.exp += xp;
+        //Debug.Log(this.exp);
     }
 
     public bool CheckAlly()
