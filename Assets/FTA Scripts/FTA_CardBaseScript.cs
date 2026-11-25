@@ -60,12 +60,10 @@ public class FTA_CardBaseScript : MonoBehaviour
     void MoveWithCard()
     {
         this.transform.position = mouseWorldPos;
-        
     }
 
     void CheckCardMovement()
     {
-
         if (Mouse.current.leftButton.wasPressedThisFrame && currentlyDraggedCard == null)
         {
             Collider2D hitCollider = Physics2D.OverlapPoint(mouseWorldPos);

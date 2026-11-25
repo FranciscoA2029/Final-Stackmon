@@ -18,8 +18,8 @@ public class FTA_StackmonBase : FTA_CardBaseScript
     
     int hitPoints;
     int attack;
-    int exp;
-    int stage = 0;
+    [SerializeField] int exp;
+    [SerializeField] int stage = 0;
     
     protected override void Start()
     {
@@ -27,11 +27,17 @@ public class FTA_StackmonBase : FTA_CardBaseScript
 
         DetermineStackmonTypeID();
         DetermineStackmonStats();
-        CheckExp(); // CHANGE INTO ONLY WHEN GAINING EXP
-        //If Hungry Feeding()
-        //If collide with NOT-ally Combat()
-        //if CheckExp() yes, Evolve()
 
+        exp = 0;
+        //If Hungry Feeding()
+
+    }
+
+    protected override void Update()
+    {
+        
+        CheckExp(); // CHANGE INTO ONLY WHEN GAINING EXP
+        base.Update();
     }
 
     protected virtual void DetermineStackmonTypeID()
@@ -58,8 +64,6 @@ public class FTA_StackmonBase : FTA_CardBaseScript
 
     protected virtual void DetermineStackmonStats()
     {
-        
-        
         // Enemies are just made weaker :p
         if (!ally)
         {
@@ -93,7 +97,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         if (exp >= levelUpMargin1 && stage == 0)
         {
             stage++;
-            exp = 0;
+            exp -= levelUpMargin1;
             DetermineStackmonStats();
             
             // CHANGE SPRITE INTO NEXT STAGE
@@ -102,7 +106,7 @@ public class FTA_StackmonBase : FTA_CardBaseScript
         if (exp >= 3 * levelUpMargin1 && stage == 1)
         {
             stage++;
-            exp = 0;
+            exp -= 3 * levelUpMargin1;
             DetermineStackmonStats();
             
             // CHANGE SPRITE INTO NEXT STAGE
